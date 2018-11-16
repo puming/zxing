@@ -34,6 +34,7 @@ import android.view.KeyEvent;
 import android.view.View;
 import android.widget.TextView;
 import com.google.zxing.client.android.clipboard.ClipboardInterface;
+import com.google.zxing.client.android.encode.EncodeActivity;
 
 /**
  * Barcode Scanner can share data like contacts and bookmarks by displaying a QR Code on screen,
@@ -122,7 +123,16 @@ public final class ShareActivity extends Activity {
     findViewById(R.id.share_contact_button).setOnClickListener(contactListener);
     if (Build.VERSION.SDK_INT >= 23) { // Marshmallow / 6.0
       // Can't access bookmarks in 6.0+
-      findViewById(R.id.share_bookmark_button).setEnabled(false);
+//      findViewById(R.id.share_bookmark_button).setEnabled(false);
+      findViewById(R.id.share_bookmark_button).setOnClickListener(new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+          Intent intent = new Intent(ShareActivity.this, EncodeActivity.class);
+          intent.setAction(Intent.ACTION_SEND);
+          intent.setAction(Intents.Encode.ACTION);
+          startActivity(intent);
+        }
+      });
     } else {
       findViewById(R.id.share_bookmark_button).setOnClickListener(bookmarkListener);
     }
