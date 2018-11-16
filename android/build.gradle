@@ -1,0 +1,47 @@
+apply plugin: 'com.android.application'
+
+android {
+    compileSdkVersion 28
+    defaultConfig {
+        applicationId "com.google.zxing.client.android"
+        minSdkVersion 19
+        targetSdkVersion 28
+        versionCode 1
+        versionName "1.0"
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+    }
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+
+  sourceSets {
+    main {
+      res.srcDirs = ['res', 'res']
+      java.srcDirs = ['src', 'src']
+      assets.srcDirs = ['assets','assets']
+      manifest.srcFile 'AndroidManifest.xml'
+    }
+
+    androidTest {
+      java.srcDirs = ['tests/src']
+      res.srcDirs = ['tests/res']
+      manifest.srcFile "tests/AndroidManifest.xml"
+    }
+  }
+
+  lintOptions{
+    abortOnError false
+  }
+}
+
+dependencies {
+  implementation fileTree(include: ['*.jar'], dir: 'libs')
+  //support library
+  implementation 'com.android.support:appcompat-v7:28.0.0'
+  implementation project(':android-core')
+  implementation project(':android-integration')
+  implementation project(':core')
+}

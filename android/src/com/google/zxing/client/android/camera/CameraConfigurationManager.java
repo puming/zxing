@@ -122,9 +122,9 @@ final class CameraConfigurationManager {
     display.getSize(theScreenResolution);
     screenResolution = theScreenResolution;
     Log.i(TAG, "Screen resolution in current orientation: " + screenResolution);
-    cameraResolution = CameraConfigurationUtils.findBestPreviewSizeValue(parameters, screenResolution);
+    cameraResolution = com.google.zxing.client.android.camera.CameraConfigurationUtils.findBestPreviewSizeValue(parameters, screenResolution);
     Log.i(TAG, "Camera resolution: " + cameraResolution);
-    bestPreviewSize = CameraConfigurationUtils.findBestPreviewSizeValue(parameters, screenResolution);
+    bestPreviewSize = com.google.zxing.client.android.camera.CameraConfigurationUtils.findBestPreviewSizeValue(parameters, screenResolution);
     Log.i(TAG, "Best available preview size: " + bestPreviewSize);
 
     boolean isScreenPortrait = screenResolution.x < screenResolution.y;
@@ -158,7 +158,7 @@ final class CameraConfigurationManager {
 
     initializeTorch(parameters, prefs, safeMode);
 
-    CameraConfigurationUtils.setFocus(
+    com.google.zxing.client.android.camera.CameraConfigurationUtils.setFocus(
         parameters,
         prefs.getBoolean(PreferencesActivity.KEY_AUTO_FOCUS, true),
         prefs.getBoolean(PreferencesActivity.KEY_DISABLE_CONTINUOUS_FOCUS, true),
@@ -166,17 +166,17 @@ final class CameraConfigurationManager {
 
     if (!safeMode) {
       if (prefs.getBoolean(PreferencesActivity.KEY_INVERT_SCAN, false)) {
-        CameraConfigurationUtils.setInvertColor(parameters);
+        com.google.zxing.client.android.camera.CameraConfigurationUtils.setInvertColor(parameters);
       }
 
       if (!prefs.getBoolean(PreferencesActivity.KEY_DISABLE_BARCODE_SCENE_MODE, true)) {
-        CameraConfigurationUtils.setBarcodeSceneMode(parameters);
+        com.google.zxing.client.android.camera.CameraConfigurationUtils.setBarcodeSceneMode(parameters);
       }
 
       if (!prefs.getBoolean(PreferencesActivity.KEY_DISABLE_METERING, true)) {
-        CameraConfigurationUtils.setVideoStabilization(parameters);
-        CameraConfigurationUtils.setFocusArea(parameters);
-        CameraConfigurationUtils.setMetering(parameters);
+        com.google.zxing.client.android.camera.CameraConfigurationUtils.setVideoStabilization(parameters);
+        com.google.zxing.client.android.camera.CameraConfigurationUtils.setFocusArea(parameters);
+        com.google.zxing.client.android.camera.CameraConfigurationUtils.setMetering(parameters);
       }
 
       //SetRecordingHint to true also a workaround for low framerate on Nexus 4
@@ -246,10 +246,10 @@ final class CameraConfigurationManager {
   }
 
   private void doSetTorch(Camera.Parameters parameters, boolean newSetting, boolean safeMode) {
-    CameraConfigurationUtils.setTorch(parameters, newSetting);
+    com.google.zxing.client.android.camera.CameraConfigurationUtils.setTorch(parameters, newSetting);
     SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
     if (!safeMode && !prefs.getBoolean(PreferencesActivity.KEY_DISABLE_EXPOSURE, true)) {
-      CameraConfigurationUtils.setBestExposure(parameters, newSetting);
+      com.google.zxing.client.android.camera.CameraConfigurationUtils.setBestExposure(parameters, newSetting);
     }
   }
 
